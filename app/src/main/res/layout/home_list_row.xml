@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.mpg.shaadidemoapp.data.entity.UserEntity" />
+
+        <variable
+            name="viewModel"
+            type="com.mpg.shaadidemoapp.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/listItemCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="@dimen/_20dp">
+
+            <ImageView
+                android:id="@+id/profile_img"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_launcher_foreground"
+                app:imageUrl="@{user.picture.large}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/name_txt"
+                style="@style/PageTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/app_name"
+                android:text="@{user.name.first}"
+                app:layout_constraintEnd_toEndOf="@id/profile_img"
+                app:layout_constraintStart_toStartOf="@id/profile_img"
+                app:layout_constraintTop_toBottomOf="@id/profile_img" />
+
+            <TextView
+                android:id="@+id/age_txt"
+                style="@style/PageTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/app_name"
+                app:layout_constraintEnd_toEndOf="@id/name_txt"
+                app:layout_constraintStart_toStartOf="@id/name_txt"
+                app:layout_constraintTop_toBottomOf="@id/name_txt"
+                app:text="@{user.dob.age}" />
+
+            <TextView
+                android:id="@+id/user_status_msg_txt"
+                style="@style/PageTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/app_name"
+                android:text="@{user.gender}"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@id/age_txt"
+                app:layout_constraintStart_toStartOf="@id/age_txt"
+                app:layout_constraintTop_toBottomOf="@id/age_txt" />
+
+            <LinearLayout
+                android:id="@+id/user_status_btn_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/age_txt"
+                app:layout_constraintStart_toStartOf="@id/age_txt"
+                app:layout_constraintTop_toBottomOf="@id/age_txt">
+
+                <ImageButton
+                    android:id="@+id/disapprove_image_btn"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:onClick="@{()->viewModel.}"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_disapprove" />
+
+                <ImageButton
+                    android:id="@+id/approve_image_btn"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_approve" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

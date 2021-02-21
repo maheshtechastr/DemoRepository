@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ShaadiDemoApp</string>
+    <string name="navigation_view_header_title">MainTitle</string>
+    <string name="no_data">No User Information Availabe.</string>
+</resources>
