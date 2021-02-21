@@ -6,6 +6,7 @@ import com.mpg.shaadidemoapp.R
 import com.mpg.shaadidemoapp.base.BaseFragment
 import com.mpg.shaadidemoapp.databinding.HomeFragmentBinding
 import com.mpg.shaadidemoapp.ui.home.adapter.UserListAdapter
+import com.mpg.shaadidemoapp.ui.utils.showToast
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -35,5 +36,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
             getBinding().progressBar.visibility = View.INVISIBLE
         })
         getBinding().userList.adapter = adapter
+
+        getViewModel().showMessage.observe(viewLifecycleOwner,{
+            context?.showToast(it)
+        })
     }
 }

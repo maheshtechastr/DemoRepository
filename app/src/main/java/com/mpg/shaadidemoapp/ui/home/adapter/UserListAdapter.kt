@@ -14,8 +14,8 @@ import javax.inject.Inject
  * Adapter for the UserEntity list. Has a reference to the [HomeViewModel] to send actions back to it.
  */
 class UserListAdapter @Inject constructor(private val viewModel: HomeViewModel) :
-    ListAdapter<UserEntity, UserListAdapter.ViewHolder>(DeviceDiffCallback()) {
-    private var itemClickListener: OnDeviceItemClickListener? = null
+    ListAdapter<UserEntity, UserListAdapter.ViewHolder>(UserDiffCallback()) {
+    private var itemClickListener: OnUserItemClickListener? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -32,7 +32,7 @@ class UserListAdapter @Inject constructor(private val viewModel: HomeViewModel) 
         fun bind(
             item: UserEntity,
             viewModel: HomeViewModel,
-            itemClickListener: OnDeviceItemClickListener?
+            itemClickListener: OnUserItemClickListener?
         ) {
             binding.viewModel = viewModel
             binding.user = item
@@ -51,12 +51,12 @@ class UserListAdapter @Inject constructor(private val viewModel: HomeViewModel) 
         }
     }
 
-    fun setItemClickListener(itemClicked: OnDeviceItemClickListener) {
+    fun setItemClickListener(itemClicked: OnUserItemClickListener) {
         this.itemClickListener = itemClicked
     }
 }
 
-interface OnDeviceItemClickListener {
+interface OnUserItemClickListener {
     fun onItemClicked(position: Int, item: UserEntity)
 }
 
@@ -66,7 +66,7 @@ interface OnDeviceItemClickListener {
  * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class DeviceDiffCallback : DiffUtil.ItemCallback<UserEntity>() {
+class UserDiffCallback : DiffUtil.ItemCallback<UserEntity>() {
     override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
         return oldItem.email == newItem.email
     }

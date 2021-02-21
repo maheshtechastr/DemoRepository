@@ -15,14 +15,14 @@ class RepositoryImpl @Inject constructor(
 ) :
     Repository {
     override suspend fun addUser(userEntity: UserEntity) {
-        TODO("Not yet implemented")
+        localRepository.addUser(userEntity)
     }
 
-    override suspend fun getUserById(deviceId: Int): UserEntity? {
-        TODO("Not yet implemented")
+    override suspend fun getUserById(email: String): UserEntity? {
+        return localRepository.getUserById(email)
     }
 
-    override suspend fun getUserRById(deviceId: Int): Result<UserEntity> {
+    override suspend fun getUserRById(email: String): Result<UserEntity> {
         TODO("Not yet implemented")
     }
 
@@ -30,20 +30,20 @@ class RepositoryImpl @Inject constructor(
         return localRepository.getUserList()
     }
 
-    override suspend fun updateUser(userEntity: UserEntity) {
-        localRepository.updateUser(userEntity)
+    override suspend fun updateUser(userEntity: UserEntity):Int {
+        return localRepository.updateUser(userEntity)
     }
 
-    override suspend fun deleteUser(deviceId: Int): Int {
-        TODO("Not yet implemented")
+    override suspend fun deleteUser(email: String): Int {
+        return localRepository.deleteUser(email)
     }
 
-    override fun observeAvailableUsers(): LiveData<List<UserEntity>> {
-        return localRepository.getUserList()
-    }
+//    override fun observeAvailableUsers(): LiveData<List<UserEntity>> {
+//        return localRepository.getUserList()
+//    }
 
 
-    override suspend fun getUsers(itemCount:Int): Result<List<UserEntity>> {
+    override suspend fun getUsers(itemCount: Int): Result<List<UserEntity>> {
         return try {
             val response = remoteRepository.getUsers(itemCount)
             if (response.isSuccessful && response.body() != null) {
@@ -51,9 +51,11 @@ class RepositoryImpl @Inject constructor(
                 for (user in users) {
                     addUser(user)
                 }
-                Result.Success(response.body()!!.results)
+                Result.Success(users)
+//                Result.Success(getUserList().value!!)
             } else Result.Error(IOException(response.message()))
         } catch (e: Exception) {
+            e.printStackTrace()
             Result.Error(e)
         }
     }

@@ -6,6 +6,6 @@ package com.mpg.shaadidemoapp.data.entity
  * */
 enum class UserStatus {
     ACCEPTED, //1 value
-    DENIED, //0 value,
-    NONE     //2
+    DENIED, //2 value,
+    NONE     //0
 }

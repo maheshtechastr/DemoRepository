@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey
 data class UserEntity(
     @Embedded(prefix = "n_") val name: Name,
     val gender: String,
-    val city: String,
-    val state: String,
-    val country: String,
-    val userStatus: Int = 2,
+    val city: String?,
+    val state: String?,
+    val country: String?,
+    val userStatus: Int = 0,
     @Embedded(prefix = "dob_") val dob: Dob,
     @Embedded(prefix = "pic_") val picture: Picture,
     @PrimaryKey val email: String

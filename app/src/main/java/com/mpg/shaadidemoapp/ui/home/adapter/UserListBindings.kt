@@ -1,17 +1,19 @@
 package com.mpg.shaadidemoapp.ui.home.adapter
 
+import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mpg.shaadidemoapp.R
 import com.mpg.shaadidemoapp.data.entity.UserEntity
-import kotlinx.android.synthetic.main.home_fragment.view.*
-import java.util.*
+import com.mpg.shaadidemoapp.data.entity.UserStatus
+import com.mpg.shaadidemoapp.ui.utils.Utils
+import timber.log.Timber
 
-
-private const val TAG = "DeviceListBindings"
 
 /**
  * [BindingAdapter]s for the [UserEntity]s list.
@@ -33,21 +35,30 @@ fun setImageWithUrl(
         .into(imageView)
 
 }
-//@BindingAdapter("app:completedTask")
-//fun setStyle(textView: TextView, enabled: Boolean) {
-//    if (enabled) {
-//        textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-//    } else {
-//        textView.paintFlags = textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-//    }
-//}
 
 @BindingAdapter("app:text")
 fun setStringFromAny(textView: TextView, any: Int) {
     textView.text = any.toString()
 }
 
-@BindingAdapter("app:text")
-fun setStringFromAny(textView: TextView, date: Date) {
-    textView.text = date.toString()
+@BindingAdapter("app:userStatus")
+fun setStringStatus(view: LinearLayout, user: UserEntity) {
+    if (user.userStatus == Utils.getUserStatusInt(UserStatus.NONE))
+        view.visibility = View.VISIBLE
+    else
+        view.visibility = View.INVISIBLE
+}
+
+@BindingAdapter("app:userStatus")
+fun setStringForUStatus(textView: TextView, user: UserEntity) {
+    Log.i("Bing","Status == ${user.userStatus}")
+    if (user.userStatus == Utils.getUserStatusInt(UserStatus.NONE))
+        textView.visibility = View.INVISIBLE
+    else {
+        if (user.userStatus == Utils.getUserStatusInt(UserStatus.ACCEPTED))
+            textView.text = "Member Accepted"
+        else
+            textView.text = "Member Declined"
+        textView.visibility = View.VISIBLE
+    }
 }

@@ -18,7 +18,7 @@ interface InventoryDao {
      *
      * @param userEntity the user to be inserted.
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addUser(userEntity: UserEntity)
 
     /**
